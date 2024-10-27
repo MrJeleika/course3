@@ -6,8 +6,8 @@ import {
   OneToMany,
 } from 'typeorm';
 
-import { Group } from './group.entity';
 import { Grade } from './grade.entity';
+import { Group } from './group.entity';
 
 @Entity('students')
 export class Student {

@@ -8,7 +8,7 @@ export class Grade {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @ManyToOne(() => Student, { nullable: false, onDelete: 'CASCADE' })
+  @ManyToOne(() => Student, { nullable: true, onDelete: 'CASCADE' })
   student!: Student;
 
   @ManyToOne(() => Exam, { nullable: false, onDelete: 'CASCADE' })

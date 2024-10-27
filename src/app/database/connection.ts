@@ -14,7 +14,12 @@ const pgConnection = new DataSource({
   synchronize: true,
   entities: [ExamCommission, Exam, Subject, Student, Group, Grade],
   migrations: [],
+  logging: ['error', 'schema'],
   subscribers: [],
+  ssl:
+    process.env.NODE_ENV === 'production'
+      ? { rejectUnauthorized: false }
+      : false,
 });
 
 export const getDBConnection = async (): Promise<DataSource> => {

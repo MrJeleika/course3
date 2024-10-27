@@ -5,17 +5,15 @@ export interface FetcherResponse<T> {
 }
 
 export class Fetcher {
-  private readonly _baseURL: URL;
   private readonly _headers: Record<string, string>;
 
-  constructor(baseURL: URL, headers: Record<string, string>) {
-    this._baseURL = baseURL;
+  constructor(headers: Record<string, string>) {
     this._headers = headers;
   }
 
   public async get<T>(url: string) {
     return this._processResponse<T>(
-      fetch(new URL(url, this._baseURL), {
+      fetch(url, {
         headers: this._headers,
       }),
     );
@@ -23,7 +21,7 @@ export class Fetcher {
 
   public async post<T>(url: string, body?: Record<string, unknown>) {
     return this._processResponse<T>(
-      fetch(new URL(url, this._baseURL), {
+      fetch(url, {
         method: 'POST',
         headers: this._headers,
         body: body ? JSON.stringify(body) : undefined,
@@ -33,7 +31,7 @@ export class Fetcher {
 
   public async put<T>(url: string, body?: Record<string, unknown>) {
     return this._processResponse<T>(
-      fetch(new URL(url, this._baseURL), {
+      fetch(url, {
         method: 'PUT',
         headers: this._headers,
         body: body ? JSON.stringify(body) : undefined,
@@ -43,7 +41,7 @@ export class Fetcher {
 
   public async delete<T>(url: string) {
     return this._processResponse<T>(
-      fetch(new URL(url, this._baseURL), {
+      fetch(url, {
         method: 'DELETE',
         headers: this._headers,
       }),
@@ -52,7 +50,7 @@ export class Fetcher {
 
   public async patch<T>(url: string, body?: Record<string, unknown>) {
     return this._processResponse<T>(
-      fetch(new URL(url, this._baseURL), {
+      fetch(url, {
         method: 'PATCH',
         headers: this._headers,
         body: body ? JSON.stringify(body) : undefined,
@@ -71,7 +69,7 @@ export class Fetcher {
 }
 
 export const apiClient = () => {
-  return new Fetcher(new URL(process.env.NEXT_PUBLIC_BACKEND_URL || ''), {
+  return new Fetcher({
     'Content-Type': 'application/json',
   });
 };

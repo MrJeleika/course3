@@ -1,5 +1,3 @@
-import { NextApiRequest } from 'next';
-
 import { getDBConnection } from '@/app/database/connection';
 import { Exam } from '@/app/database/entities/exam.entity';
 import { Subject } from '@/app/database/entities/subject.entity';
@@ -46,7 +44,7 @@ export async function POST(req: Request) {
   }
 }
 
-export async function DELETE(req: NextApiRequest) {
+export async function DELETE(req: Request) {
   try {
     const dataSource = await getDBConnection();
 

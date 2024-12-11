@@ -11,7 +11,10 @@ export const useCampaigns = () => {
     async queryFn() {
       const client = apiClient();
 
-      return await get<Campaign[]>(client, '/api/campaigns');
+      return await get<(Campaign & { clients?: string[] })[]>(
+        client,
+        '/api/campaigns',
+      );
     },
   });
 };

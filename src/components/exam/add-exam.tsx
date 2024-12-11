@@ -19,8 +19,6 @@ import {
 import { Textarea } from '../ui/textarea';
 
 import { useManagers } from '@/app/hooks/get/use-managers';
-import { useSubjects } from '@/app/hooks/get/use-subjects';
-import { useAddExam } from '@/app/hooks/mutate/use-add-exam';
 import { useCreateCampaign } from '@/app/hooks/mutate/use-create-campaign';
 
 interface Props {
@@ -40,9 +38,10 @@ export const AddExam = ({ onClose }: Props) => {
   const { mutateAsync } = useCreateCampaign();
 
   const onSubmit = useCallback(async () => {
+    if (!managers) return;
     const toastId = toast.loading('Додаю кампанію...');
     try {
-      const managerId = managers?.find((s) => s.name === manager)!.id!;
+      const managerId = managers.find((s) => s.name === manager)!.id!;
 
       const startDate = date!.from!;
       const endDate = date!.to!;
@@ -74,7 +73,18 @@ export const AddExam = ({ onClose }: Props) => {
         toast.error(error.message);
       }
     }
-  }, [date, mutateAsync, onClose, timeStart, timeEnd]);
+  }, [
+    managers,
+    date,
+    timeStart,
+    timeEnd,
+    mutateAsync,
+    name,
+    description,
+    clients,
+    onClose,
+    manager,
+  ]);
 
   return (
     <DialogContent>

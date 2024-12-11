@@ -4,7 +4,7 @@ import { post } from '../utils';
 
 import { apiClient } from '@/lib/fetcher';
 
-export type AddExamData = {
+export type CreateCampaignData = {
   managerId: number;
   name: string;
   description: string;
@@ -17,14 +17,13 @@ export const useCreateCampaign = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    async mutationFn(data: AddExamData) {
+    async mutationFn(data: CreateCampaignData) {
       const client = apiClient();
-      console.log(data);
 
-      await post(client, `/api/exams`, data);
+      await post(client, `/api/campaigns`, data);
     },
     onSuccess() {
-      return queryClient.invalidateQueries({ queryKey: ['exams'] });
+      return queryClient.invalidateQueries({ queryKey: ['campaigns'] });
     },
   });
 };

@@ -4,9 +4,8 @@ import { TrashIcon } from '@radix-ui/react-icons';
 import { ColumnDef, Row } from '@tanstack/react-table';
 import { toast } from 'sonner';
 
-import { Exam } from '@/app/database/entities/exam.entity';
-import { useRemoveExam } from '@/app/hooks/mutate/use-remove-exam';
 import { Campaign } from '@/app/database/entities/campaign.entity';
+import { useRemoveCampaign } from '@/app/hooks/mutate/use-remove-campaign';
 
 export const columnsExam: ColumnDef<Campaign>[] = [
   {
@@ -38,16 +37,16 @@ export const columnsExam: ColumnDef<Campaign>[] = [
 ];
 
 export const ActionCell = ({ row }: { row: Row<Campaign> }) => {
-  const { mutateAsync } = useRemoveExam();
+  const { mutateAsync } = useRemoveCampaign();
 
   const onClick = async () => {
-    const toastId = toast.loading('Removing exam...');
+    const toastId = toast.loading('Видаляю кампанію...');
 
     try {
       await mutateAsync(row.original.id);
 
       toast.dismiss(toastId);
-      toast.success('Exam removed');
+      toast.success('Кампанія видалена');
     } catch (error) {
       toast.dismiss(toastId);
 

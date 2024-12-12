@@ -20,7 +20,7 @@ export class Employee {
   hireDate!: string;
 
   @ManyToOne(() => Department, {
-    nullable: false,
+    nullable: true,
     onDelete: 'CASCADE',
   })
   department!: Department;

@@ -20,7 +20,7 @@ export class Campaign {
   endDate!: string;
 
   @ManyToOne(() => Employee, {
-    nullable: false,
+    nullable: true,
     onDelete: 'CASCADE',
   })
   manager!: Employee;
